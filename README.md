@@ -6,7 +6,7 @@ How to install
 pip install fsonbase
 ```
 
-#Classes
+# Classes
 
 ### fsonbase - directory with json files
 ### fcluster - file ".json" extension
