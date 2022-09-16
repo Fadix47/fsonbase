@@ -38,11 +38,11 @@ pip install fsonbase
 
 # Usage example 
 ### Data structure of `E:\testdir`
-
+```
 📁jsons
 └─ testbase.json
 test.py
-
+```
 ### Code example
 ```py
 from fsonbase import fsonbase
