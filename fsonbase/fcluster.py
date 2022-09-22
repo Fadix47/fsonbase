@@ -150,9 +150,12 @@ class fcluster:
 
                 try:
                     response = [x for x in list(content_.values()) if document.items() <= x.items()][0]
+
                     keys = list(content_.keys())
                     vals = list(content_.values())
-                    content_.pop([keys[vals.index(response)]])
+
+                    content_.pop(keys[vals.index(response)])
+
                     with open(self.filepath, 'w') as file: json.dump(content_, file, ensure_ascii=False, indent=4)
 
                 except IndexError:
