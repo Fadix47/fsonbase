@@ -119,12 +119,13 @@ class fcluster:
         if isinstance(content, dict):
 
             content_ = list(readjson(self.filepath).values())
-            response = [x for x in content_ if content.items() <= x.items()][0]
 
-            if response:
-                return response
-            else:
-                return None
+            try: 
+                response = [x for x in content_ if content.items() <= x.items()][0]
+            except IndexError:
+                response = None
+
+            return response
         else:
             return TypeError(f"Input type {type(content)} instead of <class 'dict'>")
 
