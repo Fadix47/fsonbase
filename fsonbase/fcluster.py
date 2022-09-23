@@ -120,7 +120,7 @@ class fcluster:
 
             content_ = list(readjson(self.filepath).values())
 
-            try: 
+            try:
                 response = [x for x in content_ if content.items() <= x.items()][0]
             except IndexError:
                 response = None
