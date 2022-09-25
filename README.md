@@ -47,7 +47,7 @@ test.py
 ```py
 from fsonbase import fsonbase
 
-base = fsonbase(r"E:\testdir\jsons")
+base = fsonbase(r"E:/testdir/jsons")
 cluster = base.connect("testbase")
 
 print(cluster.readall())
