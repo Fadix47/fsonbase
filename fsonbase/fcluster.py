@@ -1,12 +1,13 @@
-import json
+import ujson as json
 from uuid import uuid4
 from typing import Union
+from ujson import JSONDecodeError
 
 
 def readjson(fp):
     try:
         with open(fp) as file: return json.load(file)
-    except json.decoder.JSONDecodeError:
+    except JSONDecodeError:
         with open(fp, 'w') as file: json.dump({}, file, ensure_ascii=False, indent=4)
         return {}
 
@@ -16,8 +17,8 @@ class fcluster:
         self.filepath = filepath
         self.name = self.filepath[self.filepath.rfind('\\')+1:][:-5]
 
-    def readall(self) -> dict:
-        return readjson(self.filepath)
+    def readall(self) -> list:
+        return list(readjson(self.filepath).values())
 
     def find_one_and_replace_document(self, document, content) -> None:
         if isinstance(document, dict) and isinstance(content, dict):
@@ -166,5 +167,27 @@ class fcluster:
         else:
             return TypeError(f"Input type {type(document)} instead of <class 'dict'>")
 
-    def delete_all(self) -> None:
+    def delete_many_documents(self, document) -> None:
+        if isinstance(document, dict):
+            try:
+                content_ = readjson(self.filepath)
+
+                try:
+                    response = [x for x in list(content_.values()) if document.items() <= x.items()]
+
+                    keys = list(content_.keys())
+                    vals = list(content_.values())
+
+                    [content_.pop(keys[vals.index(_)]) for _ in response]
+
+                    with open(self.filepath, 'w') as file: json.dump(content_, file, ensure_ascii=False, indent=4)
+
+                except IndexError:
+                    return Exception(f"Document not found in {self.name}")
+            except TypeError:
+                return TypeError("Input dict contains not supported elements!")
+        else:
+            return TypeError(f"Input type {type(document)} instead of <class 'dict'>")
+
+    def clear_document(self) -> None:
         with open(self.filepath, 'w') as file: json.dump({}, file, ensure_ascii=False, indent=4)
