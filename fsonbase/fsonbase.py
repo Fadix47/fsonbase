@@ -3,7 +3,7 @@ from os.path import isdir, isfile, exists
 from os import listdir, remove
 from .fcluster import fcluster
 from typing import Union
-from json import dump
+from ujson import dump
 
 
 class fsonbase:
