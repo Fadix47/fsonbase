@@ -1,5 +1,5 @@
 # fsonbase
-Simple module that helps to use json as a strong databases
+Simple module based on ujson that helps to use json as a strong databases
 
 How to install 
 ```
@@ -28,7 +28,8 @@ pip install fsonbase
 |   readall    |  `None` |  `dict`  |  Return all information from cluster   |
 |   insert_document  | content: `dict` | `None` | Adding document in json file on custom_id |
 | delete_document | document: `dict` | `None` | Delete document with information from file |
-| delete_all | `None` | `None` | Delete all information inside cluster |
+| delete_many_documents | document: `dict` | `None` | Delete all documents with given information from file |
+| clear_document | `None` | `None` | Delete all information inside cluster |
 | find_one_document | content: `dict` | `Union[dict, None]` | Return full information about ONE document or `None` if document not found |
 | find_documents | content: `dict` | `Union[list, None]` | Returns list with information with all documents or `None` if documents not found |
 | find_one_and_replace_document | document: `dict`, content: `dict` | `None` | Find one document and replace all information on `content` |
@@ -47,13 +48,13 @@ test.py
 ```py
 from fsonbase import fsonbase
 
-base = fsonbase(r"E:/testdir/jsons")
+base = fsonbase(r"E:\testdir\jsons")
 cluster = base.connect("testbase")
 
 print(cluster.readall())
 ```
 ### Output
 ```
-{'7154f767321d488cad9e26f0af9b17bf': {'test': 'information', 'more': {'key': 10003, 'list': [202, 'test', 'testbase']}}}
+[{'test': 'information', 'more': {'key': 10003, 'list': [202, 'test', 'testbase']}}]
 ```
 
