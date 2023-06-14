@@ -25,7 +25,7 @@ pip install fsonbase
 
 |    Method      |             Arguments         | Return |   Information   |
 |:--------------:|:-----------------------------:|:------:|:---------------:|
-|   readall    |  `None` |  `dict`  |  Return all information from cluster   |
+|   readall    |  `None` |  `list`  |  Return all information from cluster   |
 |   insert_document  | content: `dict` | `None` | Adding document in json file on custom_id |
 | delete_document | document: `dict` | `None` | Delete document with information from file |
 | delete_many_documents | document: `dict` | `None` | Delete all documents with given information from file |
