@@ -8,8 +8,9 @@ pip install fsonbase
 
 # Classes
 
-### fsonbase - directory with json files
-### fcluster - file ".json" extension
+### fsonbase - directory with json files or mongo cluster manager
+### fcluster - file ".json" extension manager
+### mcluster - mongo collection manager
 
 # Methods
 
