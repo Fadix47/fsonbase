@@ -1,21 +1,24 @@
-import ujson as json
+import json
 from uuid import uuid4
 from typing import Union
-from ujson import JSONDecodeError
+from json import JSONDecodeError
 
 
 class fcluster:
     def __init__(self, filepath):
         self.filepath = filepath
         self.name = self.filepath[self.filepath.rfind('\\')+1:][:-5]
+        self.cache = {}
 
     def readjson(self, fp):
         try:
-            with open(fp, encoding='UTF-8') as file: return json.load(file)
+            with open(fp, encoding='UTF-8') as file:
+                content = json.load(file)
+                self.cache = dict(content.items())
+                return content
         except JSONDecodeError:
-            return self.readjson(fp)
-        except RecursionError:
-            raise Exception(f"Decode Error: {fp}")
+            with open(self.filepath, 'w') as file: json.dump(self.cache, file, ensure_ascii=True, indent=4)
+            return self.cache
 
     def readall(self) -> list:
         return list(self.readjson(self.filepath).values())
